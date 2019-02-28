@@ -1,21 +1,22 @@
-import { NavigationProps, ThemeContext } from '@bluebase/core';
+import { BlueBaseContext, NavigationProps, NavigatorProps, ThemeContext, joinPaths, resolveThunk, BlueBase } from '@bluebase/core';
 import { Navigator } from './Navigator';
 import React from 'react';
 import { Router } from './lib/index';
-import { joinPaths } from './helpers/joinPaths';
-import { NavigatorProps } from '@bluebase/core/dist/components';
-import { resolveThunk } from '@bluebase/core/dist/utils';
+// import { joinPaths } from './helpers/joinPaths';
 
 export class Navigation extends React.Component<NavigationProps> {
 
-	static contextType = ThemeContext;
+	static contextType = BlueBaseContext;
 
 	render() {
 
 		const { navigator, ...rest } = this.props;
-		// const { theme }: ThemeContextData = this.context;
+		const BB: BlueBase = this.context;
 
-		console.log('navigator', processNavigator(navigator));
+		const navigatorObject = processNavigator(navigator);
+
+		BB.Configs.setValue('plugin.react-router.navigation.configs', navigatorObject);
+
 		return <Router {...rest}><Navigator {...processNavigator(navigator)} /></Router>;
 	}
 }
@@ -23,7 +24,7 @@ export class Navigation extends React.Component<NavigationProps> {
 function processNavigator(navigator: NavigatorProps, parentPath: string = ''): NavigatorProps {
 
 	const routes = resolveThunk(navigator.routes).map(r => {
-		const path = joinPaths(parentPath, r.path);
+		const path = `/${joinPaths(parentPath, r.path)}`;
 		const resolvedNavigator = r.navigator ? processNavigator(r.navigator, path) : undefined;
 
 		return {

@@ -1,7 +1,9 @@
 import { BootOptions } from '@bluebase/core';
-import ReactRouterPlugin from '../../src/plugin-react-router';
 import commonBootOptions from '../common/bluebase';
 import deepmerge from 'deepmerge';
+
+// TODO: Only for evaluation, remove this
+import DummyPlugin from './sample';
 
 /**
  * Add your platform specific configs here. 
@@ -10,9 +12,18 @@ import deepmerge from 'deepmerge';
  */
 const bootOptions: Partial<BootOptions> = {
 
-	plugins: {
-		'react-router': ReactRouterPlugin,
-	}
+	plugins: [
+		// TODO: Only for evaluation, remove this
+		DummyPlugin
+	],
+	// config: {
+
+	// 	wallpaper: {
+	// 		backgroundColor: 'white',
+	// 		resizeMode: 'cover',
+	// 		source: require('./../../assets/storybook/wallpaper.jpg'),
+	// 	},
+	// }
 };
 
 export default deepmerge(commonBootOptions, bootOptions);

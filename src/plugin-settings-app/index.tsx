@@ -1,5 +1,5 @@
 // tslint:disable: object-literal-sort-keys
-import { HomeScreen, SettingsScreen } from './Screens/index';
+import { HomeScreen, SettingsScreen, SettingsDetailScreen } from './Screens/index';
 
 export default {
 
@@ -10,13 +10,21 @@ export default {
 		HomeScreen,
 	},
 
-	route: {
+	routes: [{
 		name: 'Settings',
-		path: 'settings',
+		path: '',
+		exact: true,
 		screen: SettingsScreen,
 		navigationOptions: {
 			title: 'Settings',
 		}
-	},
+	}, {
+		name: 'SettingsDetail',
+		path: ':id',
+		screen: SettingsDetailScreen,
+		navigationOptions: {
+			title: 'Settings Detail',
+		}
+	}],
 
 };

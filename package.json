@@ -2,12 +2,14 @@
   "scripts": {
     "web:start": "bluebase web:start",
     "expo:start": "bluebase expo:start",
-    "debug": "yarn run web:start"
+    "debug": "yarn run web:start",
+    "storybook:start": "bluebase storybook:start"
   },
   "dependencies": {
     "@react-navigation/web": "^1.0.0-alpha.7",
     "deepmerge": "^3.0.0",
     "expo": "^31.0.6",
+    "formik": "^1.5.1",
     "react": "^16",
     "react-dom": "^16.4.2",
     "react-hot-loader": "^4.6.3",
@@ -19,14 +21,21 @@
   },
   "devDependencies": {
     "@babel/runtime": "^7.2.0",
-    "@bluebase/core": "^4.0.0-aplha.6",
+    "@bluebase/cli-essentials": "^0.0.2",
+    "@bluebase/core": "^4.0.0-aplha.7",
+    "@bluebase/storybook-addon": "^3.0.0",
     "@blueeast/tslint-config-blueeast": "^0.7.0",
+    "@storybook/addon-actions": "^4.1.13",
+    "@storybook/addon-links": "^4.1.13",
+    "@storybook/react": "^4.1.13",
     "@types/deepmerge": "^2.2.0",
+    "@types/node": "^11.9.5",
     "@types/react": "^16.7.18",
     "@types/react-native": "^0.57.25",
     "@types/react-navigation": "^3.0.2",
     "@types/react-router-dom": "^4.3.1",
     "@types/react-router-native": "^4.2.4",
+    "babel-core": "^6.26.3",
     "babel-preset-bluebase": "^1.0.0",
     "react-native-typescript-transformer": "^1.2.10",
     "schedule": "0.4.0",

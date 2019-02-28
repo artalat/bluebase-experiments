@@ -1,5 +1,6 @@
 import { Navigation } from './Navigation';
 import { NavigationActions } from './NavigationActions';
+import { Screen } from './Screen';
 
 export default {
 
@@ -9,5 +10,6 @@ export default {
 	components: {
 		Navigation,
 		NavigationActions,
+		Screen,
 	}
 };

@@ -1,5 +1,5 @@
+import { NavigationActionPayload, NavigationActionsObject } from '@bluebase/core';
 import { NavigationInjectedProps, NavigationParams } from 'react-navigation';
-import { NavigationActionsObject } from '@bluebase/core';
 
 type NavigationProp = NavigationInjectedProps['navigation'];
 
@@ -26,7 +26,8 @@ export const navigationToActionObject = (navigation: NavigationProp): Navigation
 		throw Error('No router found in navigation.');
 	}
 
-	const execAction = (fn: ((...a: any[]) => void), path: string, params: NavigationParams) => {
+	// Execute action from a path
+	const execPathAction = (fn: ((...a: any[]) => void), path: string, params?: NavigationParams) => {
 		const action = router.getActionForPathAndParams(path, params) as any;
 
 		if (!fn || !action) {
@@ -40,14 +41,51 @@ export const navigationToActionObject = (navigation: NavigationProp): Navigation
 		}
 	};
 
+
+	/**
+	 * Execute an action. If a path routeName is provided, prefer it,
+	 * otherwise execute a path.
+	 * @param fn
+	 * @param path
+	 * @param params
+	 */
+	const execAction = (fn: ((...a: any[]) => void), routeName: NavigationActionPayload, params?: NavigationParams) => {
+
+		if (!fn) {
+			return;
+		}
+
+		if (typeof routeName === 'string' || typeof routeName.routeName === 'string') {
+			fn(routeName, params);
+			return;
+		}
+
+		if (typeof routeName.path === 'string') {
+			execPathAction(fn, routeName.path, params);
+			return;
+		}
+
+		throw Error('Invalid props provided to navigation action');
+	};
+
+	// const p = router.getPathAndParamsForState(navigation.state as any);
+	// console.log('p', p)
+
 	const actions: NavigationActionsObject = {
 		getParam,
 		goBack: () => goBack(),
-		navigate: (path: string, params?: NavigationParams) => execAction(navigate, path, params),
+		navigate: (routeName, params?: NavigationParams) => execAction(navigate, routeName, params),
 		pop,
-		push: (path: string, params?: NavigationParams) => execAction(push || navigate, path, params),
-		replace: (path: string, params?: NavigationParams) => execAction(replace || navigate, path, params),
+		push: (routeName, params?: NavigationParams) => execAction(push || navigate, routeName, params),
+		replace: (routeName, params?: NavigationParams) => execAction(replace || navigate, routeName, params),
 		setParams,
+
+		state: {
+			key: navigation.state.key,
+			params: navigation.state.params || {},
+			routeName: navigation.state.routeName,
+			url: navigation.state.path || '',
+		},
 
 		source: navigation,
 	};

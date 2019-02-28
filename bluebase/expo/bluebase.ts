@@ -1,4 +1,5 @@
 import { BootOptions } from '@bluebase/core';
+import ReactNavigationPlugin from '../../src/plugin-react-navigation';
 import commonBootOptions from '../common/bluebase';
 import deepmerge from 'deepmerge';
 
@@ -11,14 +12,9 @@ import deepmerge from 'deepmerge';
  */
 const bootOptions: Partial<BootOptions> = {
 
-	// config: {
-
-	// 	wallpaper: {
-	// 		backgroundColor: 'white',
-	// 		resizeMode: 'cover',
-	// 		source: require(`${assetsPath}/wallpaper.jpg`),
-	// 	},
-	// }
+	plugins: {
+		'react-navigation': ReactNavigationPlugin,
+	}
 };
 
 export default deepmerge(commonBootOptions, bootOptions);

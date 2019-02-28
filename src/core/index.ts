@@ -1,4 +1,7 @@
-import { SceneHeader } from './SceneHeader';
+import { OrientationObserver } from './OrientationObserver';
+// import { ScreenHeader } from './ScreenHeader';
+// import { ScreenHeaderBackButton } from './ScreenHeaderBackButton';
+// import { ScreenHeaderTitle } from './ScreenHeaderTitle';
 
 export default {
 
@@ -6,6 +9,9 @@ export default {
 	name: 'Core Extras',
 
 	components: {
-		SceneHeader,
+		OrientationObserver,
+		// ScreenHeader,
+		// ScreenHeaderBackButton,
+		// ScreenHeaderTitle,
 	}
 };

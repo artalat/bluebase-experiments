@@ -85,7 +85,7 @@ export {
 
 // // const MyStack = createSwitchNavigator({ ... });
 
-// const SceneHeader = getComponent('SceneHeader');
+// const ScreenHeader = getComponent('ScreenHeader');
 
 // class StackView extends React.Component<any> {
 // 	// static router = {
@@ -112,7 +112,7 @@ export {
 // 				{
 // 					// Header
 // 					headerMode !== 'none'
-// 					? React.createElement(header || SceneHeader, options)
+// 					? React.createElement(header || ScreenHeader, options)
 // 					: null
 // 				}
 //         <SceneView

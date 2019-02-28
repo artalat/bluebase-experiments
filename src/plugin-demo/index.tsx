@@ -1,6 +1,6 @@
 // tslint:disable: object-literal-sort-keys
 // import App from './App';
-// import { SceneHeader } from '../react-navigation/SceneHeader';
+// import { ScreenHeader } from '../react-navigation/ScreenHeader';
 import { Text,  } from 'react-native';
 import { NavigatorProps } from '@bluebase/core';
 import React from 'react';

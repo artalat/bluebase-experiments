@@ -40,7 +40,7 @@ export const createNavigator = (options: NavigatorProps, theme: Theme) => {
 
 				render() {
 
-					const navigation = this.props.navigation 
+					const navigation = this.props.navigation
 					? navigationToActionObject(this.props.navigation)
 					: undefined;
 
@@ -77,6 +77,7 @@ export const createNavigator = (options: NavigatorProps, theme: Theme) => {
 		},
 		headerStyle: {
 			backgroundColor: theme.palette.primary.main,
+			...theme.elevation(4)
 		},
 		headerTitleStyle: {
 			color: theme.palette.primary.contrastText,

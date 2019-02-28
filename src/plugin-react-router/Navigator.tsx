@@ -1,15 +1,15 @@
 // tslint:disable: jsx-alignment
 // tslint:disable: jsx-no-lambda
-import { NavigatorProps, RouteConfig, getComponent } from '@bluebase/core';
+import { NavigatorProps, RouteConfig, getComponent, resolveThunk, BlueBaseConsumer, BlueBase } from '@bluebase/core';
 import { Route, Stack, Switch } from './lib';
 import React from 'react';
 import { historyToActionObject } from './helpers/historyToActionObject';
-// import { Header } from '@react-navigation/native';
-// import { Text } from 'react-native';
 
+const Screen = getComponent('Screen');
 
-// const Header = () => <Text>Foo</Text>;
-const renderRoute = (element: RouteConfig) => {
+const renderRoute = (navigatorType: string, BB: BlueBase) => (element: RouteConfig) => {
+
+	const navigationOptions = resolveThunk(element.navigationOptions || {});
 
 	// react-navigation's route object
 	const route: any = {
@@ -18,20 +18,27 @@ const renderRoute = (element: RouteConfig) => {
 		key: element.name,
 		path: element.path,
 
-		headerComponent: Header,
+		// headerComponent: () => React.createElement(Header, navigationOptions),
 	};
 
 	// Screen component
 	const Component = (typeof element.screen === 'string') ? getComponent(element.screen) : element.screen;
+
+	const screenProps = {
+		component: Component,
+		navigationOptions,
+		navigator: navigatorType,
+	};
+
 
 	// If we have both, a navigator and a screen, we wrap the navigator inside
 	// the screen component
 	if (Component && element.navigator) {
 		return (
 			<Route {...route} children={(routerProps) => (
-				<Component navigation={historyToActionObject(routerProps)}>
+				<Screen {...screenProps} navigation={historyToActionObject(routerProps, BB)}>
 					<Navigator {...element.navigator} />
-				</Component>
+				</Screen>
 			)} />
 		);
 
@@ -48,7 +55,7 @@ const renderRoute = (element: RouteConfig) => {
 	else if (Component) {
 		return (
 			<Route {...route} children={(routerProps) => (
-				<Component navigation={historyToActionObject(routerProps)} />
+				<Screen {...screenProps} navigation={historyToActionObject(routerProps, BB)} />
 			)} />
 		);
 	}
@@ -67,8 +74,10 @@ export const Navigator = (props: NavigatorProps) => {
 	const NavigatorComponent = (type === 'stack') ? Stack : Switch;
 
 	return (
-		<NavigatorComponent {...rest}>
-			{resolvedRoutes.map(renderRoute)}
-		</NavigatorComponent>
+		<BlueBaseConsumer children={(BB: BlueBase) => (
+			<NavigatorComponent {...rest}>
+				{resolvedRoutes.map(renderRoute(type, BB))}
+			</NavigatorComponent>
+		)} />
 	);
 };

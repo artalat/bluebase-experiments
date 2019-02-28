@@ -9,7 +9,7 @@ export class HomeScreen extends React.Component<any> {
         <Text>Apps</Text>
         <Button
           title="Settings"
-          onPress={() => this.props.navigation.navigate('p/settings')}
+          onPress={() => this.props.navigation.navigate('Settings')}
         />
       </View>
 		);
