@@ -28,7 +28,19 @@ export const navigationToActionObject = (navigation: NavigationProp): Navigation
 
 	// Execute action from a path
 	const execPathAction = (fn: ((...a: any[]) => void), path: string, params?: NavigationParams) => {
-		const action = router.getActionForPathAndParams(path, params) as any;
+
+
+		// const parsed = queryString.parse(path);
+
+		const url = path.substring(0, path.indexOf('?'));
+		const search = path.substring(path.indexOf('?'));
+
+		const finalParams = {
+			...params,
+			'__path_search__': search,
+			'__path_url__': url,
+		}
+		const action = router.getActionForPathAndParams(url, finalParams) as any;
 
 		if (!fn || !action) {
 			return;
@@ -68,8 +80,12 @@ export const navigationToActionObject = (navigation: NavigationProp): Navigation
 		throw Error('Invalid props provided to navigation action');
 	};
 
-	// const p = router.getPathAndParamsForState(navigation.state as any);
-	// console.log('p', p)
+
+	const otherParams: any = { ...navigation.state.params };
+	const extractedUrl = `/${otherParams.__path_url__}`;
+	const extractedSearch = otherParams.__path_search__;
+	delete otherParams.__path_url__;
+	delete otherParams.__path_search__;
 
 	const actions: NavigationActionsObject = {
 		getParam,
@@ -82,9 +98,10 @@ export const navigationToActionObject = (navigation: NavigationProp): Navigation
 
 		state: {
 			key: navigation.state.key,
-			params: navigation.state.params || {},
+			params: otherParams || {},
 			routeName: navigation.state.routeName,
-			url: navigation.state.path || '',
+			search: extractedSearch,
+			url: navigation.state.path || extractedUrl,
 		},
 
 		source: navigation,

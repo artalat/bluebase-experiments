@@ -57,8 +57,8 @@ export const historyToActionObject = (router: RouteComponentProps, BB: BlueBase)
 			router.history.replace(router.match.path, { ...router.match.params, ...params });
 		},
 
-		getParam: (key: string) => {
-			return (router.match.params as any)[key];
+		getParam: (key: string, defaultValue: any) => {
+			return (router.match.params as any)[key] || defaultValue;
 		},
 
 		source: router,
@@ -72,7 +72,6 @@ export const historyToActionObject = (router: RouteComponentProps, BB: BlueBase)
 		},
 	};
 
-	console.log('actions', actions)
 	return actions;
 };
 
