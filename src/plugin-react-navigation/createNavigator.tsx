@@ -40,6 +40,7 @@ export const createNavigator = (options: NavigatorProps, theme: Theme) => {
 
 				render() {
 
+					const { navigation: n, ...screenProps } = this.props;
 					const navigation = this.props.navigation
 					? navigationToActionObject(this.props.navigation)
 					: undefined;
@@ -47,7 +48,7 @@ export const createNavigator = (options: NavigatorProps, theme: Theme) => {
 					const props = { ...this.props, navigation };
 
 					return (
-						<Component {...props}>
+						<Component screenProps={screenProps || {}} navigation={navigation}>
 							<Navigator {...props} />
 						</Component>
 					);

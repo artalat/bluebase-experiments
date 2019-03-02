@@ -1,48 +1,32 @@
-import { NavigationActionsObject, NavigationParams, BlueBase, joinPaths } from '@bluebase/core';
+import {
+	BlueBase,
+	NavigationActionsObject,
+	NavigationParams,
+	NavigatorProps,
+} from '@bluebase/core';
 import { RouteComponentProps } from '../lib';
-import { NavigatorProps, RouteConfig, NavigationActionPayload } from '@bluebase/core/dist/components';
+import { executeAction } from './exectureAction';
+import { findRouteByKey } from './findRouteByKey';
 
 export const historyToActionObject = (router: RouteComponentProps, BB: BlueBase) => {
 
-	const configs: NavigatorProps = BB.Configs.getValue('plugin.react-router.navigation.configs');
+	const configs: NavigatorProps = BB.Configs.getValue('plugin.react-router.navigationConfigs');
+	const enableSource: boolean = BB.Configs.getValue('plugin.react-router.enableSourceInNavigationActions');
 
 	const obj = findRouteByKey(router.match.path, 'path', configs);
-
-	const executeAction = (fn: any, routeName: NavigationActionPayload, params?: NavigationParams) => {
-
-		let path;
-
-		if (typeof routeName === 'string') {
-			const routeObj = findRouteByKey(routeName, 'name', configs);
-			path = routeObj && routeObj.path;
-		}
-		else if (typeof (routeName as any).routeName === 'string') {
-			const routeObj = findRouteByKey(routeName as any, 'routeName', configs);
-			path = routeObj && routeObj.path;
-		}
-		else if (typeof (routeName as any).path === 'string') {
-			path = (routeName as any).path;
-		}
-
-		if (!path) {
-			throw Error('Invalid props provided to navigation action');
-		}
-
-		fn(`/${joinPaths(path)}`, params);
-	};
 
 	const actions: NavigationActionsObject = {
 
 		navigate: (routeName, params?: NavigationParams) => {
-			return executeAction(router.history.push, routeName, params);
+			return executeAction(configs, router.history.push, routeName, params);
 		},
 
 		push: (routeName, params?: NavigationParams) => {
-			return executeAction(router.history.push, routeName, params);
+			return executeAction(configs, router.history.push, routeName, params);
 		},
 
 		replace: (routeName, params?: NavigationParams) => {
-			return executeAction(router.history.replace, routeName, params);
+			return executeAction(configs, router.history.replace, routeName, params);
 		},
 
 		pop: (steps: number = 0) => {
@@ -61,7 +45,7 @@ export const historyToActionObject = (router: RouteComponentProps, BB: BlueBase)
 			return (router.match.params as any)[key] || defaultValue;
 		},
 
-		source: router,
+		source: enableSource ? router : undefined,
 
 		state: {
 			key: router.location.key,
@@ -75,21 +59,3 @@ export const historyToActionObject = (router: RouteComponentProps, BB: BlueBase)
 	return actions;
 };
 
-function findRouteByKey(search: string, key: string, configs: NavigatorProps): RouteConfig | null {
-
-	let found = null;
-
-	(configs.routes as RouteConfig[]).forEach((route) => {
-
-		if (route[key] === search) {
-			found = route;
-			return;
-		}
-
-		if (route.navigator && route.navigator.routes) {
-			found = findRouteByKey(search, key, route.navigator);
-		}
-	});
-
-	return found;
-}

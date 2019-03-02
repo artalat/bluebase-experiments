@@ -4,6 +4,7 @@ import React from 'react';
 
 export class HomeScreen extends React.Component<any> {
 	render() {
+    console.log('screen props', this.props);
 		return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>Apps</Text>
