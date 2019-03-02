@@ -6,18 +6,23 @@ import {
 export function findRouteByKey(search: string, key: string, configs: NavigatorProps): RouteConfig | null {
 
 	let found = null;
+	const routes = configs.routes as RouteConfig[];
 
-	(configs.routes as RouteConfig[]).forEach((route) => {
-
+	for (const route of routes) {
 		if (route[key] === search) {
 			found = route;
-			return;
+			break;
 		}
 
 		if (route.navigator && route.navigator.routes) {
 			found = findRouteByKey(search, key, route.navigator);
+
+			if (found) {
+				break;
+			}
 		}
-	});
+	}
+
 
 	return found;
 }

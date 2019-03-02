@@ -12,6 +12,18 @@ export class HomeScreen extends React.Component<any> {
           title="Settings"
           onPress={() => this.props.navigation.navigate('Settings')}
         />
+        <Button
+          title="Tabs"
+          onPress={() => this.props.navigation.navigate('SettingsTabs')}
+        />
+        <Button
+          title="Bottom Tabs"
+          onPress={() => this.props.navigation.navigate('SettingsBottomTabs')}
+        />
+        <Button
+          title="Drawer"
+          onPress={() => this.props.navigation.navigate('SettingsDrawer')}
+        />
       </View>
 		);
 	}

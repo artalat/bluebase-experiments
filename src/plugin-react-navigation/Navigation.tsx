@@ -1,7 +1,7 @@
 import { NavigationProps, ThemeContext, ThemeContextData } from '@bluebase/core';
 import React from 'react';
 import { createContainer } from './lib/index';
-import { createNavigator } from './createNavigator';
+import { createNavigator } from './helpers/createNavigator';
 
 export class Navigation extends React.Component<NavigationProps> {
 

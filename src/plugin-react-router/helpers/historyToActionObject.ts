@@ -1,7 +1,7 @@
 import {
 	BlueBase,
+	NavigationActionParams,
 	NavigationActionsObject,
-	NavigationParams,
 	NavigatorProps,
 } from '@bluebase/core';
 import { RouteComponentProps } from '../lib';
@@ -17,15 +17,15 @@ export const historyToActionObject = (router: RouteComponentProps, BB: BlueBase)
 
 	const actions: NavigationActionsObject = {
 
-		navigate: (routeName, params?: NavigationParams) => {
+		navigate: (routeName, params?: NavigationActionParams) => {
 			return executeAction(configs, router.history.push, routeName, params);
 		},
 
-		push: (routeName, params?: NavigationParams) => {
+		push: (routeName, params?: NavigationActionParams) => {
 			return executeAction(configs, router.history.push, routeName, params);
 		},
 
-		replace: (routeName, params?: NavigationParams) => {
+		replace: (routeName, params?: NavigationActionParams) => {
 			return executeAction(configs, router.history.replace, routeName, params);
 		},
 
@@ -37,7 +37,7 @@ export const historyToActionObject = (router: RouteComponentProps, BB: BlueBase)
 			router.history.goBack();
 		},
 
-		setParams: (params: NavigationParams) => {
+		setParams: (params: NavigationActionParams) => {
 			router.history.replace(router.match.path, { ...router.match.params, ...params });
 		},
 

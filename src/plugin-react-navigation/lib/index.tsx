@@ -13,6 +13,9 @@
 export {
   createSwitchNavigator,
   createSwitchNavigator as createStackNavigator,
+	createSwitchNavigator as createMaterialTopTabNavigator,
+	createSwitchNavigator as createBottomTabNavigator,
+	createSwitchNavigator as createDrawerNavigator,
 } from '@react-navigation/core';
 
 // export { createSwitchNavigator, createStackNavigator } from 'react-navigation';

@@ -1,13 +1,13 @@
 import {
+	NavigationActionParams,
 	NavigationActionPayload,
-	NavigationParams,
 	NavigatorProps,
 	joinPaths
 } from '@bluebase/core';
 import { findRouteByKey } from './findRouteByKey';
 
 export const executeAction =
-(configs: NavigatorProps, fn: any, routeName: NavigationActionPayload, params?: NavigationParams) => {
+(configs: NavigatorProps, fn: any, routeName: NavigationActionPayload, params?: NavigationActionParams) => {
 
 	let path;
 

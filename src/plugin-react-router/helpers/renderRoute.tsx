@@ -1,6 +1,5 @@
 import {
 	BlueBase,
-	NavigatorProps,
 	RouteConfig,
 	getComponent,
 	resolveThunk,
@@ -13,7 +12,7 @@ const Screen = getComponent('Screen');
 
 export const renderRoute = (
 	navigatorType: string,
-	Navigator: React.ComponentType<NavigatorProps>,
+	Navigator: React.ComponentType<any>,
 	BB: BlueBase
 ) => (element: RouteConfig) => {
 

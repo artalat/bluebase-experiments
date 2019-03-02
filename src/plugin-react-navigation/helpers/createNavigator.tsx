@@ -1,9 +1,9 @@
 import { NavigationRouteConfig, NavigationRouteConfigMap } from 'react-navigation';
 import { NavigatorProps, RouteConfig, Theme, getComponent } from '@bluebase/core';
-import { createStackNavigator, createSwitchNavigator } from './lib/index';
 import React from 'react';
-import { navigationConverterHoc } from './helpers/navigationConverterHoc';
-import { navigationToActionObject } from './helpers/navigationToActionObject';
+import { getNavigatorFn } from './getNavigatorFn';
+import { navigationConverterHoc } from './navigationConverterHoc';
+import { navigationToActionObject } from './navigationToActionObject';
 
 export const createNavigator = (options: NavigatorProps, theme: Theme) => {
 
@@ -13,7 +13,7 @@ export const createNavigator = (options: NavigatorProps, theme: Theme) => {
 	const resolvedRoutes: RouteConfig[] = (typeof routes === 'function') ? routes() : routes;
 
 	// Get appropriate navigator creator function
-	const createNavigatorFn = (type === 'stack') ? createStackNavigator : createSwitchNavigator;
+	const createNavigatorFn = getNavigatorFn(type);
 
 	const navigatorRoutes: NavigationRouteConfigMap = {};
 
@@ -40,7 +40,7 @@ export const createNavigator = (options: NavigatorProps, theme: Theme) => {
 
 				render() {
 
-					const { navigation: n, ...screenProps } = this.props;
+					const { navigation: n, ...others } = this.props;
 					const navigation = this.props.navigation
 					? navigationToActionObject(this.props.navigation)
 					: undefined;
@@ -48,7 +48,7 @@ export const createNavigator = (options: NavigatorProps, theme: Theme) => {
 					const props = { ...this.props, navigation };
 
 					return (
-						<Component screenProps={screenProps || {}} navigation={navigation}>
+						<Component {...others} navigation={navigation}>
 							<Navigator {...props} />
 						</Component>
 					);
