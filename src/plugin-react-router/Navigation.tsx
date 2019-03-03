@@ -3,10 +3,10 @@ import {
 	BlueBaseContext,
 	NavigationProps,
 } from '@bluebase/core';
-import { Navigator } from './Navigator';
 import React from 'react';
 import { Router } from './lib/index';
-import { processNavigator } from './helpers/processNavigator';
+import { preparePaths } from './helpers/preparePaths';
+import { renderNavigator } from './helpers/renderNavigator';
 
 export class Navigation extends React.Component<NavigationProps> {
 
@@ -17,10 +17,16 @@ export class Navigation extends React.Component<NavigationProps> {
 		const { navigator, ...rest } = this.props;
 		const BB: BlueBase = this.context;
 
-		const navigatorObject = processNavigator(navigator);
+		// Make sure paths are in correct format.
+		const navigatorObject = preparePaths(navigator);
 
+		// Save the resolved tree in configs to use later
 		BB.Configs.setValue('plugin.react-router.navigationConfigs', navigatorObject);
 
-		return <Router {...rest}><Navigator {...processNavigator(navigator)} /></Router>;
+		return (
+			<Router {...rest}>
+				{renderNavigator(navigatorObject, BB)}
+			</Router>
+		);
 	}
 }

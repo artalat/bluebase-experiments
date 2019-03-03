@@ -1,51 +1,47 @@
 import {
 	BlueBase,
-	RouteConfig,
 	getComponent,
-	resolveThunk,
 } from '@bluebase/core';
 import React from 'react';
 import { Route } from '../lib';
+import { RouteConfigWithResolveSubRoutes, NavigatorPropsWithResolvedRoutes } from '../Navigators/types';
 import { historyToActionObject } from '../helpers/historyToActionObject';
+import { renderNavigator } from './renderNavigator';
 
 const Screen = getComponent('Screen');
 
 export const renderRoute = (
-	navigatorType: string,
-	Navigator: React.ComponentType<any>,
+	route: RouteConfigWithResolveSubRoutes, 
+	parentNavigator: NavigatorPropsWithResolvedRoutes,
 	BB: BlueBase
-) => (element: RouteConfig) => {
+) => {
 
-	const navigationOptions = resolveThunk(element.navigationOptions || {});
+	const { exact, name, navigationOptions, navigator, path, screen } = route;
 
-	// react-navigation's route object
-	const route: any = {
-		exact: element.exact,
-		// navigationOptions: element.navigationOptions,
-		key: element.name,
-		path: element.path,
-
-		// headerComponent: () => React.createElement(Header, navigationOptions),
+	// react-router's route object
+	const routeProps: any = {
+		exact,
+		key: name,
+		path,
 	};
 
 	// Screen component
-	const Component = (typeof element.screen === 'string') ? getComponent(element.screen) : element.screen;
+	const Component = (typeof screen === 'string') ? getComponent(screen) : screen;
 
 	const screenProps = {
 		component: Component,
 		navigationOptions,
-		navigator: navigatorType,
+		navigator: parentNavigator,
 	};
-
 
 	// If we have both, a navigator and a screen, we wrap the navigator inside
 	// the screen component
-	if (Component && element.navigator) {
+	if (Component && navigator) {
 		return (
-			<Route {...route}>
+			<Route {...routeProps}>
 			{(routerProps) => (
 				<Screen {...screenProps} navigation={historyToActionObject(routerProps, BB)}>
-					<Navigator {...element.navigator} />
+					{renderNavigator(navigator as any, BB)}
 				</Screen>
 			)}
 			</Route>
@@ -53,17 +49,17 @@ export const renderRoute = (
 
 	}
 	// If we have only a navigator, use it
-	else if (element.navigator) {
+	else if (navigator) {
 		return (
-			<Route {...route}>
-				<Navigator {...element.navigator} />
+			<Route {...routeProps}>
+				{renderNavigator(navigator as any, BB)}
 			</Route>
 		);
 	}
 	// If we have only a screen, use it
 	else if (Component) {
 		return (
-			<Route {...route}>
+			<Route {...routeProps}>
 			{(routerProps) => (
 				<Screen {...screenProps} navigation={historyToActionObject(routerProps, BB)} />
 			)}

@@ -28,6 +28,7 @@ const plugin: PluginInput = {
 	}, {
 		name: 'SettingsTabs',
 		path: 'tabs',
+		// TODO: test initial route here
 		navigator: {
 			type: 'tab',
 			routes: [{
