@@ -11,6 +11,8 @@ export default function (input: any) {
 
 	return deepmerge(input, {
 		includePaths: [
+			// '/Users/artalat/Coding/bluebase-test-app/node_modules/react-native-animated',
+			// '/Users/artalat/Coding/bluebase-test-app/node_modules/react-native-tab-view',
 			// '/Users/artalat/Coding/bluebase-test-app/node_modules/@react-navigation/core/',
 			// '/Users/artalat/Coding/bluebase-test-app/node_modules/@react-navigation/native/',
 			// '/Users/artalat/Coding/bluebase-test-app/node_modules/@react-navigation/native/node_modules/react-native-gesture-handler',

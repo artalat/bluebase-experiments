@@ -1,6 +1,7 @@
 import { Navigation } from './Navigation';
 import { NavigationActions } from './NavigationActions';
 import { Screen } from './Screen';
+import { TabView } from './TabView';
 
 export default {
 
@@ -12,12 +13,13 @@ export default {
 		 * If enabled, navigation.source value is set with router value
 		 * from react-router's context.
 		 */
-		'plugin.react-router.enableSourceInNavigationActions': false,
+		'plugin.react-router.enableSourceInNavigationActions': true,
 	},
 
 	components: {
 		Navigation,
 		NavigationActions,
 		Screen,
+		TabView,
 	}
 };

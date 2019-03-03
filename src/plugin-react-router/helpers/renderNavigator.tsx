@@ -31,7 +31,7 @@ export function renderNavigator(navigator: NavigatorProps, BB: BlueBase) {
 			break;
 
 		case 'tab':
-			NavigatorComponent = TabNavigator as any;
+			NavigatorComponent = TabNavigator;
 			break;
 
 		default:
