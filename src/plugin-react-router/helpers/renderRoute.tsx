@@ -15,7 +15,7 @@ import { renderNavigator } from './renderNavigator';
 const Screen = getComponent('Screen');
 
 export const renderRoute = (
-	route: RouteConfigWithResolveSubRoutes, 
+	route: RouteConfigWithResolveSubRoutes,
 	parentNavigator: NavigatorPropsWithResolvedRoutes,
 	BB: BlueBase
 ) => {

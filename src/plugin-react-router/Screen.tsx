@@ -43,7 +43,7 @@ export const Screen = (props: ScreenProps) => {
 		}
 	);
 
-	if (navigator.type === 'stack') {
+	if (navigator && navigator.type === 'stack') {
 		return (
 			<View style={stylesheet.root}>
 				<Header {...finalNavigationOptions} />
