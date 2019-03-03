@@ -4,11 +4,11 @@ import {
 	SettingsDetailScreen,
 	SettingsScreen,
 } from './Screens/index';
-import { PluginInput } from '@bluebase/core';
+import { Plugin } from '@bluebase/core';
 import { Tab1Screen } from './Screens/Tab1';
 import { Tab2Screen } from './Screens/Tab2';
 
-const plugin: PluginInput = {
+const plugin: Partial<Plugin> = {
 
 	key: 'settings',
 	name: 'Settings',
