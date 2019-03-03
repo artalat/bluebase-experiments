@@ -1829,6 +1829,14 @@
   resolved "https://registry.yarnpkg.com/@types/query-string/-/query-string-6.2.0.tgz#ac1903ab175de7fd4a7bb703964c297eebddc8f7"
   integrity sha512-dnYqKg7eZ+t7ZhCuBtwLxjqON8yXr27hiu3zXfPqxfJSbWUZNwwISE0BJUxghlcKsk4lZSp7bdFSJBJVNWBfmA==
 
+"@types/react-native-tab-view@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@types/react-native-tab-view/-/react-native-tab-view-1.0.4.tgz#ea9bc78acae98dc90eab2692622c23b970232217"
+  integrity sha512-7Id2PbdPx3VbF5Fj0jzJjABTLv30Kp0Js+P/+n2YTTZqka0qSp4/bS7T9IHJD/IvSfKm2nxM9K0ff2YoBrMzPA==
+  dependencies:
+    "@types/react" "*"
+    "@types/react-native" "*"
+
 "@types/react-native@*", "@types/react-native@^0.57.25":
   version "0.57.25"
   resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.57.25.tgz#20041561e5c5d6b4a0ed563be37ec3b12d31a8ae"
@@ -8829,6 +8837,11 @@ react-native-tab-view@^1.0.0, react-native-tab-view@^1.2.0:
   integrity sha512-QNt6VkEW8SP1UJ7yjD5P4bOTWwHQfoIMD5CqnA06pcubdNwHR1NmjiNZsVnIvp5wAEVbW6yTHjLXOh1fzab4xg==
   dependencies:
     prop-types "^15.6.1"
+
+react-native-tab-view@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-2.0.1.tgz#67ad94be00d751f35367838bb7b089361e58af5d"
+  integrity sha512-kA8CHrcJk7TJA1S55FUL2sN9zjnKzEBg0FpK8MnZnvuuopUQOiLgLauX/rJeQMWg3uBIpGdMajNkRxGwvJkgyA==
 
 react-native-typescript-transformer@^1.2.10:
   version "1.2.11"

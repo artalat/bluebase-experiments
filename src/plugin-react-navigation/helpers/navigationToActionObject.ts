@@ -39,7 +39,8 @@ export const navigationToActionObject = (navigation: NavigationProp): Navigation
 			...params,
 			'__path_search__': search,
 			'__path_url__': url,
-		}
+		};
+
 		const action = router.getActionForPathAndParams(url, finalParams) as any;
 
 		if (!fn || !action) {
