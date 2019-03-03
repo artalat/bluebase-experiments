@@ -2,9 +2,13 @@ import {
 	BlueBase,
 	getComponent,
 } from '@bluebase/core';
+import {
+	NavigatorPropsWithResolvedRoutes,
+	RouteConfigWithResolveSubRoutes
+} from '../Navigators/types';
 import React from 'react';
 import { Route } from '../lib';
-import { RouteConfigWithResolveSubRoutes, NavigatorPropsWithResolvedRoutes } from '../Navigators/types';
+import { ScreenProps } from '../Screen';
 import { historyToActionObject } from '../helpers/historyToActionObject';
 import { renderNavigator } from './renderNavigator';
 
@@ -28,44 +32,21 @@ export const renderRoute = (
 	// Screen component
 	const Component = (typeof screen === 'string') ? getComponent(screen) : screen;
 
-	const screenProps = {
+	const screenProps: Partial<ScreenProps> = {
 		component: Component,
 		navigationOptions,
 		navigator: parentNavigator,
 	};
 
-	// If we have both, a navigator and a screen, we wrap the navigator inside
-	// the screen component
-	if (Component && navigator) {
-		return (
-			<Route {...routeProps}>
-			{(routerProps) => (
-				<Screen {...screenProps} navigation={historyToActionObject(routerProps, BB)}>
-					{renderNavigator(navigator as any, BB)}
-				</Screen>
-			)}
-			</Route>
-		);
-
-	}
-	// If we have only a navigator, use it
-	else if (navigator) {
-		return (
-			<Route {...routeProps}>
-				{renderNavigator(navigator as any, BB)}
-			</Route>
-		);
-	}
-	// If we have only a screen, use it
-	else if (Component) {
-		return (
-			<Route {...routeProps}>
-			{(routerProps) => (
-				<Screen {...screenProps} navigation={historyToActionObject(routerProps, BB)} />
-			)}
-			</Route>
-		);
+	if (navigator) {
+		screenProps.children = renderNavigator(navigator as any, BB);
 	}
 
-	return null;
+	return (
+		<Route {...routeProps}>
+		{(routerProps) => (
+			<Screen {...screenProps} navigation={historyToActionObject(routerProps, BB)} />
+		)}
+		</Route>
+	);
 };

@@ -1,5 +1,6 @@
 import {
 	Header,
+	MaybeThunk,
 	NavigationActionsObject,
 	NavigationOptions,
 	Theme,
@@ -7,25 +8,32 @@ import {
 	resolveThunk,
 } from '@bluebase/core';
 import { StyleProp, ViewStyle } from 'react-native';
-import React from 'react';
 import { NavigatorPropsWithResolvedRoutes } from './Navigators/types';
+import React from 'react';
 
 export interface ScreenStyles {
 	root: StyleProp<ViewStyle>
 }
 
 export interface ScreenProps {
-	navigationOptions?: NavigationOptions,
-	component: React.ComponentType<any>,
+	navigationOptions?: MaybeThunk<NavigationOptions>,
+	component?: React.ComponentType<any>,
 	navigation: NavigationActionsObject,
 	navigator: NavigatorPropsWithResolvedRoutes,
 	children: React.ReactNode,
 	styles?: ScreenStyles
 }
+
+const ScreenContent = ({ children }: any) => (
+	<View style={{ flex: 1 }}>{children}</View>
+);
+
 export const Screen = (props: ScreenProps) => {
 
-	const { component: Component, navigationOptions, navigator, styles, ...rest } = props;
+	const { component, navigationOptions, navigator, styles, ...rest } = props;
 	const stylesheet = styles as ScreenStyles;
+
+	const Component = component || ScreenContent;
 
 	const finalNavigationOptions = resolveThunk(
 		navigationOptions || {},
