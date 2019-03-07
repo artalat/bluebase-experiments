@@ -24,6 +24,7 @@ export interface TabViewProps {
 	styles?: ScreenStyles
 }
 
+const BottomNavigation = getComponent('BottomNavigation');
 const TabBar = getComponent('TabBar');
 
 const TabViewContent = ({ children }: any) => (
@@ -62,6 +63,15 @@ export const TabView = (props: TabViewProps) => {
 			};
 		})
 	};
+
+	if (navigator.type === 'bottom-tab') {
+		return (
+			<View style={stylesheet.root}>
+				<Component {...rest} />
+				<BottomNavigation navigationState={navigationState} />
+			</View>
+		);
+	}
 
 	return (
 		<View style={stylesheet.root}>

@@ -1,3 +1,5 @@
+// We follow TabBar from react-navigation
+
 import { Animated, StyleProp, ViewStyle } from 'react-native';
 import { ReactNode } from 'react';
 import { getComponent } from '@bluebase/core';

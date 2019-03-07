@@ -1,4 +1,5 @@
 import { Button, Text, View } from 'react-native';
+import { DrawerActions } from '../../components';
 import { NavigationActions } from '@bluebase/core';
 import React from 'react';
 
@@ -15,6 +16,14 @@ export class Tab2Screen extends React.Component {
             />
           )}
         </NavigationActions>
+        <DrawerActions>
+          {({ toggleDrawer }: any) => (
+            <Button
+              title="Toggle Drawer"
+              onPress={() => toggleDrawer()}
+            />
+          )}
+        </DrawerActions>
       </View>
 		);
 	}

@@ -81,8 +81,22 @@ const plugin: Partial<Plugin> = {
 	}, {
 		name: 'SettingsDrawer',
 		path: 'drawer',
+
 		navigator: {
 			type: 'drawer',
+
+			drawerType: 'slide',
+
+			contentOptions: {
+				activeTintColor: '#e91e63',
+				itemsContainerStyle: {
+					marginVertical: 0,
+				},
+				iconContainerStyle: {
+					opacity: 1
+				}
+			},
+
 			routes: [{
 				name: 'DTab1',
 				path: 'dt1',
@@ -90,6 +104,7 @@ const plugin: Partial<Plugin> = {
 				screen: Tab1Screen,
 				navigationOptions: {
 					title: 'DTab A',
+					// drawerLockMode: 'locked-open',
 				}
 			}, {
 				name: 'DTab2',

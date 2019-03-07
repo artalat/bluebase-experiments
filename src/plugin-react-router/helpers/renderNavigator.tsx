@@ -11,6 +11,7 @@ import React from 'react';
 import { StackNavigator } from '../Navigators/StackNavigator';
 import { SwitchNavigator } from '../Navigators/SwitchNavigator';
 import { TabNavigator } from '../Navigators/TabNavigator';
+import { DrawerNavigator } from '../Navigators/DrawerNavigator';
 
 export function renderNavigator(navigator: NavigatorProps, BB: BlueBase) {
 
@@ -31,7 +32,16 @@ export function renderNavigator(navigator: NavigatorProps, BB: BlueBase) {
 			break;
 
 		case 'tab':
+		case 'top-tab':
 			NavigatorComponent = TabNavigator;
+			break;
+
+		case 'bottom-tab':
+			NavigatorComponent = TabNavigator;
+			break;
+
+		case 'drawer':
+			NavigatorComponent = DrawerNavigator;
 			break;
 
 		default:

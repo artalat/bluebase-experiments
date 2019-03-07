@@ -1,3 +1,4 @@
+import { DrawerView } from './DrawerView';
 import { Navigation } from './Navigation';
 import { NavigationActions } from './NavigationActions';
 import { Screen } from './Screen';
@@ -17,6 +18,7 @@ export default {
 	},
 
 	components: {
+		DrawerView,
 		Navigation,
 		NavigationActions,
 		Screen,

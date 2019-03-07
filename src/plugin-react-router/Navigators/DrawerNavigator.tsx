@@ -1,25 +1,22 @@
 import {
 	BlueBase,
 	BlueBaseContext,
-	NavigationActions,
-	NavigationActionsObject,
 	Redirect,
-	View,
 	getComponent,
-	resolveThunk,
 } from '@bluebase/core';
 import { NavigatorPropsWithResolvedRoutes, RouteConfigWithResolveSubRoutes } from './types';
-import { Route, Switch } from '../lib';
+import { Route, Switch } from '../lib/index';
 import React from 'react';
+import { ScreenProps } from '../Screen';
 import { historyToActionObject } from '../helpers/historyToActionObject';
 import { renderNavigator } from '../helpers/renderNavigator';
 
-const TabView = getComponent('TabView');
+const DrawerView = getComponent('DrawerView');
 
-export interface TabNavigatorProps extends NavigatorPropsWithResolvedRoutes {
+export interface DrawerNavigatorProps extends NavigatorPropsWithResolvedRoutes {
 }
 
-export class TabNavigator extends React.Component<TabNavigatorProps> {
+export class DrawerNavigator extends React.Component<DrawerNavigatorProps> {
 
 	static contextType = BlueBaseContext;
 
@@ -44,7 +41,7 @@ export class TabNavigator extends React.Component<TabNavigatorProps> {
 
 	private renderRoute(route: RouteConfigWithResolveSubRoutes, BB: BlueBase) {
 
-		const parentNavigator = this.props as TabNavigatorProps;
+		const parentNavigator = this.props;
 		const { exact, name, navigationOptions, navigator, path, screen } = route;
 
 		// react-router's route object
@@ -57,7 +54,7 @@ export class TabNavigator extends React.Component<TabNavigatorProps> {
 		// Screen component
 		const Component = (typeof screen === 'string') ? getComponent(screen) : screen;
 
-		const screenProps: any = {
+		const screenProps: Partial<ScreenProps> = {
 			component: Component,
 			navigationOptions,
 			navigator: parentNavigator,
@@ -70,7 +67,7 @@ export class TabNavigator extends React.Component<TabNavigatorProps> {
 		return (
 			<Route {...routeProps}>
 				{(routerProps) => (
-					<TabView
+					<DrawerView
 						{...screenProps}
 						navigation={historyToActionObject(routerProps, BB)}
 					/>
