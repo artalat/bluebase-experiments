@@ -8,7 +8,7 @@ export interface LinkProps {
 	params?: NavigationActionParams;
 	replace?: boolean,
 	onPress?: (ev: NativeSyntheticEvent<NativeTouchEvent>) => void;
-	component: React.ComponentType<any>
+	component?: React.ComponentType<any>
 }
 
 export const Link = getComponent<LinkProps>('Link');

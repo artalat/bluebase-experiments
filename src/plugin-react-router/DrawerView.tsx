@@ -8,9 +8,10 @@ import {
 	getComponent,
 	resolveThunk,
 } from '@bluebase/core';
-import { StyleProp, ViewStyle } from 'react-native';
+import { StyleProp, ViewStyle, ScrollView, SafeAreaView } from 'react-native';
 import { NavigatorPropsWithResolvedRoutes } from './Navigators/types';
 import React from 'react';
+import { DrawerItem, Link, NavigationActions } from '../components';
 
 export interface ScreenStyles {
 	root: StyleProp<ViewStyle>
@@ -27,9 +28,26 @@ export interface DrawerViewProps {
 
 const DrawerLayout = getComponent('DrawerLayout');
 
-const DrawerNavigationView = () => (
-	<View style={{ flex: 1 }}><Text>Foo bar</Text></View>
-);
+const DrawerNavigationView = (props: any) => {
+
+	const { navigationState } = props;
+	const { index, routes } = navigationState;
+
+	return (
+		<ScrollView>
+			<SafeAreaView>
+				<NavigationActions>
+					{({ navigate }) => {
+
+						return routes.map(r => (
+							<DrawerItem key={r.routeName} title={r.title} onPress={() => navigate(r.routeName)} />
+						));
+					}}
+				</NavigationActions>
+			</SafeAreaView>
+		</ScrollView>
+	);
+};
 
 export const DrawerView = (props: DrawerViewProps) => {
 
@@ -40,31 +58,32 @@ export const DrawerView = (props: DrawerViewProps) => {
 
 	const Component = component; //|| DrawerViewContent;
 
-	// // Resolve active tab index
-	// const currentRouteName = props.navigation.state.routeName;
-	// const currentIndex = navigator.routes.findIndex(route => route.name === currentRouteName);
+	// Resolve active tab index
+	const currentRouteName = props.navigation.state.routeName;
+	const currentIndex = navigator.routes.findIndex(route => route.name === currentRouteName);
 
-	// // Navigation State
-	// const navigationState = {
-	// 	index: currentIndex,
-	// 	routes: navigator.routes.map((route, index) => {
+	// Navigation State
+	const navigationState = {
+		index: currentIndex,
+		routes: navigator.routes.map((route, index) => {
 
-	// 		// Resolve navigationOptions
-	// 		const options = resolveThunk(
-	// 			route.navigationOptions || {},
-	// 			{
-	// 				navigation: props.navigation,
-	// 				screenProps: rest
-	// 			}
-	// 		);
+			// Resolve navigationOptions
+			const options = resolveThunk(
+				route.navigationOptions || {},
+				{
+					navigation: props.navigation,
+					screenProps: rest
+				}
+			);
 
-	// 		return {
-	// 			index,
-	// 			routeName: route.name,
-	// 			title: options.title,
-	// 		};
-	// 	})
-	// };
+			return {
+				index,
+				path: route.path,
+				routeName: route.name,
+				title: options.title,
+			};
+		})
+	};
 
 	// return (
 	// 	<View style={stylesheet.root}>
@@ -75,8 +94,8 @@ export const DrawerView = (props: DrawerViewProps) => {
 
 	return (
 	 		<View style={stylesheet.root}>
-				<DrawerLayout {...other} renderNavigationView={DrawerNavigationView}>
-					<Component {...rest} />
+				<DrawerLayout {...other} navigationState={navigationState} renderNavigationView={DrawerNavigationView}>
+					{Component ? <Component {...rest} /> : null}
 				</DrawerLayout>
 			</View>
 	);

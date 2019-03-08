@@ -6,10 +6,10 @@ import deepmerge from 'deepmerge';
 
 const bootOptions: Partial<BootOptions> = {
 
-	plugins: {
-		'material-ui': MaterialUIPlugin,
-		'react-router': ReactRouterPlugin,
-	}
+	plugins: [
+		MaterialUIPlugin,
+		ReactRouterPlugin,
+	],
 };
 
 export default deepmerge(commonBootOptions, bootOptions);

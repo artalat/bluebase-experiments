@@ -1,19 +1,20 @@
 import List from '@material-ui/core/List';
-import ListSubheader from '@material-ui/core/ListSubheader';
 import { ListSectionProps } from '../../components/index';
-import { componentMapper } from '../../component-mapper/index';
+import ListSubheader from '@material-ui/core/ListSubheader';
 import React from 'react';
+import { componentMapper } from '../../component-mapper/index';
 
 export const ListSection = componentMapper<ListSectionProps>(List, {
 	children: 'children',
 	subheader: {
 		transform: (props: ListSectionProps) => {
 
+			const { children } = props;
 			let subheader;
 
-			for (const child of React.Children.toArray(props.children)) {
-				if (child.type.displayName === 'ListSubheader'){
-					subheader = child.props.children;
+			for (const child of React.Children.toArray(children)) {
+				if ((child as any).type.displayName === 'ListSubheader'){
+					subheader = (child as any).props.children;
 					break;
 				}
 			}

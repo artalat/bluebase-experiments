@@ -39,7 +39,7 @@ export class DrawerLayout extends React.Component<DrawerLayoutProps, DrawerLayou
 
 		const drawerProps = {
 			anchor: drawerPosition,
-			children: renderNavigationView && renderNavigationView(),
+			children: renderNavigationView && renderNavigationView(this.props),
 			onBackdropClick: () => this.state.toggleDrawer(),
 			onClose: onDrawerClose,
 			onRendered: onDrawerOpen,

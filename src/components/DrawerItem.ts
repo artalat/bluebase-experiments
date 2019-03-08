@@ -1,13 +1,13 @@
+import { IconProps } from './Icon';
 import { getComponent } from '@bluebase/core';
 
-export interface ListItemProps {
+export interface DrawerItemProps {
 	title: React.ReactNode;
-	description?: React.ReactNode;
-	left?: React.ReactNode;
+	icon?: IconProps;
 	right?: React.ReactNode;
 	onPress?: () => void;
 	active?: boolean;
 	disabled?: boolean;
 }
 
-export const ListItem = getComponent<ListItemProps>('ListItem');
+export const DrawerItem = getComponent<DrawerItemProps>('DrawerItem');

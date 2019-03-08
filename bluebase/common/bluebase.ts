@@ -7,10 +7,8 @@ import SettingsApp from '../../src/plugin-settings-app';
 // for booting bluebase. see https://blueeast.gitbooks.io/bluebase/
 export default {
 
-	plugins: {
-		'core': CoreExtras,
-		// 'react-navigation': ReactNavigationPlugin,
-		// 'react-router': ReactRouterPlugin,
-		'settings': SettingsApp,
-	}
+	plugins: [
+		CoreExtras,
+		SettingsApp,
+	]
 };

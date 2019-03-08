@@ -1,4 +1,5 @@
 import { BootOptions } from '@bluebase/core';
+import ReactNativePaperPlugin from '../../src/plugin-react-native-paper';
 import ReactNavigationPlugin from '../../src/plugin-react-navigation';
 import commonBootOptions from '../common/bluebase';
 import deepmerge from 'deepmerge';
@@ -12,9 +13,10 @@ import deepmerge from 'deepmerge';
  */
 const bootOptions: Partial<BootOptions> = {
 
-	plugins: {
-		'react-navigation': ReactNavigationPlugin,
-	}
+	plugins: [
+		ReactNativePaperPlugin,
+		ReactNavigationPlugin,
+	]
 };
 
 export default deepmerge(commonBootOptions, bootOptions);
